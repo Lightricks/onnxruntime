@@ -1,0 +1,21 @@
+name: Build Onnxruntime binaries
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build-ios:
+    runs-on: macos-12
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Build Full
+      run: python3 ./tools/ci_build/github/apple/build_ios_framework.py tools/ci_build/github/apple/default_full_ios_framework_build_settings.json
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ios_binaries
+        path: build/ios_framework/framework_out
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ios_build_data
+        path: build/ios_framework/intermediates

@@ -242,6 +242,8 @@ target_link_libraries(onnxruntime PRIVATE
     ${onnxruntime_EXTERNAL_LIBRARIES}
 )
 
+list(REMOVE_ITEM onnxruntime_EXTERNAL_LIBRARIES ${PROTOBUF_LIB})
+
 set_property(TARGET onnxruntime APPEND_STRING PROPERTY LINK_FLAGS ${ONNXRUNTIME_SO_LINK_FLAG} ${onnxruntime_DELAYLOAD_FLAGS})
 set_target_properties(onnxruntime PROPERTIES
   PUBLIC_HEADER "${ONNXRUNTIME_PUBLIC_HEADERS}"
